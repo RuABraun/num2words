@@ -89,7 +89,7 @@ class Num2Word_DE(Num2Word_EU):
 
         if cnum == 1:
             if nnum == 100 or nnum == 1000:
-                return ("ein" + ntext, nnum)
+                return ("ein " + ntext, nnum)
             elif nnum < 10 ** 6:
                 return next
             ctext = "eine"
@@ -107,12 +107,12 @@ class Num2Word_DE(Num2Word_EU):
             if nnum < 10 < cnum < 100:
                 if nnum == 1:
                     ntext = "ein"
-                ntext, ctext = ctext, ntext + "und"
+                ntext, ctext = ctext, ntext + " und "
             elif cnum >= 10 ** 6:
                 ctext += " "
             val = cnum + nnum
 
-        word = ctext + ntext
+        word = ctext + " " + ntext
         return (word, val)
 
     def to_ordinal(self, value):
@@ -126,7 +126,7 @@ class Num2Word_DE(Num2Word_EU):
         res = outword + "te"
 
         # Exception: "hundertste" is usually preferred over "einhundertste"
-        if res == "eintausendste" or res == "einhundertste":
+        if res == "ein tausendste" or res == "ein hundertste":
             res = res.replace("ein", "", 1)
         # ... similarly for "millionste" etc.
         res = re.sub(r'eine ([a-z]+(illion|illiard)ste)$',
@@ -154,4 +154,4 @@ class Num2Word_DE(Num2Word_EU):
         if not (val // 100) % 10:
             return self.to_cardinal(val)
         return self.to_splitnum(val, hightxt="hundert", longval=longval)\
-            .replace(' ', '')
+            .replace(' ', ' ')

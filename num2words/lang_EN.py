@@ -61,7 +61,7 @@ class Num2Word_EN(lang_EU.Num2Word_EU):
         if lnum == 1 and rnum < 100:
             return (rtext, rnum)
         elif 100 > lnum > rnum:
-            return ("%s-%s" % (ltext, rtext), lnum + rnum)
+            return ("%s %s" % (ltext, rtext), lnum + rnum)
         elif lnum >= 100 > rnum:
             return ("%s and %s" % (ltext, rtext), lnum + rnum)
         elif rnum > lnum:
@@ -71,7 +71,7 @@ class Num2Word_EN(lang_EU.Num2Word_EU):
     def to_ordinal(self, value):
         self.verify_ordinal(value)
         outwords = self.to_cardinal(value).split(" ")
-        lastwords = outwords[-1].split("-")
+        lastwords = outwords[-1].split(" ")
         lastword = lastwords[-1].lower()
         try:
             lastword = self.ords[lastword]
@@ -80,7 +80,7 @@ class Num2Word_EN(lang_EU.Num2Word_EU):
                 lastword = lastword[:-1] + "ie"
             lastword += "th"
         lastwords[-1] = self.title(lastword)
-        outwords[-1] = "-".join(lastwords)
+        outwords[-1] = " ".join(lastwords)
         return " ".join(outwords)
 
     def to_ordinal_num(self, value):
@@ -102,7 +102,7 @@ class Num2Word_EN(lang_EU.Num2Word_EU):
             if low == 0:
                 lowtext = "hundred"
             elif low < 10:
-                lowtext = "oh-%s" % self.to_cardinal(low)
+                lowtext = "oh %s" % self.to_cardinal(low)
             else:
                 lowtext = self.to_cardinal(low)
             valtext = "%s %s" % (hightext, lowtext)
